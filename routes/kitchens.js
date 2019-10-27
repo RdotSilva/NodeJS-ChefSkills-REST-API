@@ -5,6 +5,10 @@ app.get("/", (req, res) => {
 	res.status(200).json({ success: true, msg: "Show all kitchens" });
 });
 
+app.get("/:id", (req, res) => {
+	res.status(200).json({ success: true, msg: `Show kitchen ${req.params.id}` });
+});
+
 app.post("/", (req, res) => {
 	res.status(200).json({ success: true, msg: "Create new kitchen" });
 });
