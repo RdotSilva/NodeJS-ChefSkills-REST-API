@@ -12,3 +12,9 @@ app.get("/:id", (req, res) => {
 app.post("/", (req, res) => {
 	res.status(200).json({ success: true, msg: "Create new kitchen" });
 });
+
+app.put("/:id", (req, res) => {
+	res
+		.status(200)
+		.json({ success: true, msg: `Update kitchen ${req.params.id}` });
+});
