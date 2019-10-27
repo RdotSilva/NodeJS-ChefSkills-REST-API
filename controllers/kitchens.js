@@ -18,3 +18,12 @@ exports.getKitchen = (req, res, next) => {
 exports.createKitchen = (req, res, next) => {
 	res.status(200).json({ success: true, msg: "Create new kitchen" });
 };
+
+// @desc      Update kitchen
+// @route     PUT /api/v1/kitchens/:id
+// @access    Private
+exports.updateKitchen = (req, res, next) => {
+	res
+		.status(200)
+		.json({ success: true, msg: `Update kitchen ${req.params.id}` });
+};
