@@ -1,10 +1,16 @@
 const express = require("express");
 const dotenv = require("dotenv");
 
+// Route files
+const kitchens = require("./routes/kitchens");
+
 // Load ENV variables
 dotenv.config({ path: "./config/config.env" });
 
 const app = express();
+
+// Mount routers
+app.use("/api/v1/kitchens", kitchens);
 
 app.get("/api/v1/kitchens", (req, res) => {
 	res.status(200).json({ success: true, msg: "Show all kitchens" });
