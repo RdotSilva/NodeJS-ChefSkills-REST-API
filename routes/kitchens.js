@@ -18,3 +18,9 @@ app.put("/:id", (req, res) => {
 		.status(200)
 		.json({ success: true, msg: `Update kitchen ${req.params.id}` });
 });
+
+app.delete("/:id", (req, res) => {
+	res
+		.status(200)
+		.json({ success: true, msg: `Delete kitchen ${req.params.id}` });
+});
