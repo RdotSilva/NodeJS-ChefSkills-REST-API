@@ -10,6 +10,10 @@ app.get("/api/v1/kitchens", (req, res) => {
 	res.status(200).json({ success: true, msg: "Show all kitchens" });
 });
 
+app.post("/api/v1/kitchens", (req, res) => {
+	res.status(200).json({ success: true, msg: "Create new kitchen" });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(
