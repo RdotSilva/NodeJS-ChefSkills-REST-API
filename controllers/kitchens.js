@@ -27,3 +27,12 @@ exports.updateKitchen = (req, res, next) => {
 		.status(200)
 		.json({ success: true, msg: `Update kitchen ${req.params.id}` });
 };
+
+// @desc      Delete kitchen
+// @route     DELETE /api/v1/kitchens/:id
+// @access    Private
+exports.deleteKitchen = (req, res, next) => {
+	res
+		.status(200)
+		.json({ success: true, msg: `Delete kitchen ${req.params.id}` });
+};
