@@ -7,5 +7,6 @@ const KitchenSchema = new mongoose.Schema({
 		unique: true,
 		trim: true,
 		maxLength: [50, "Name can not be more than 50 characters"]
-	}
+	},
+	Slug: String
 });
