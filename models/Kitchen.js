@@ -52,5 +52,18 @@ const KitchenSchema = new mongoose.Schema({
 		state: String,
 		zipcode: String,
 		country: String
+	},
+	careers: {
+		// Array of strings
+		type: [String],
+		required: true,
+		enum: [
+			"Restaurant Manager",
+			"Executive Chef",
+			"Head Chef",
+			"Pasty Chef",
+			"Sous Chef",
+			"Banquet Chef"
+		]
 	}
 });
