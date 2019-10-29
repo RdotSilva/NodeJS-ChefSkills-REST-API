@@ -24,5 +24,12 @@ const KitchenSchema = new mongoose.Schema({
 	phone: {
 		type: String,
 		maxlength: [20, "Phone number can not be longer than 20 characters"]
+	},
+	email: {
+		type: String,
+		match: [
+			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+			"Please add a valid email"
+		]
 	}
 });
