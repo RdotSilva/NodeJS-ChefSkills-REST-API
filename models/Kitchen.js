@@ -31,5 +31,9 @@ const KitchenSchema = new mongoose.Schema({
 			/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
 			"Please add a valid email"
 		]
+	},
+	address: {
+		type: String,
+		required: [true, "Please add an address"]
 	}
 });
