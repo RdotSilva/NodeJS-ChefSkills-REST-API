@@ -79,5 +79,9 @@ const KitchenSchema = new mongoose.Schema({
 	housing: {
 		type: Boolean,
 		default: false
+	},
+	jobAssistance: {
+		type: Boolean,
+		default: false
 	}
 });
