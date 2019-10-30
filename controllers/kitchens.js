@@ -1,3 +1,5 @@
+const Kitchen = require("../models/Kitchen");
+
 // @desc      Get all kitchens
 // @route     GET /api/v1/kitchens
 // @access    Public
@@ -15,8 +17,17 @@ exports.getKitchen = (req, res, next) => {
 // @desc      Create new kitchen
 // @route     POST /api/v1/kitchens
 // @access    Private
-exports.createKitchen = (req, res, next) => {
-	res.status(200).json({ success: true, msg: "Create new kitchen" });
+exports.createKitchen = async (req, res, next) => {
+	try {
+		const kitchen = await Kitchen.create(req.body);
+
+		res.status(201).json({
+			success: true,
+			data: kitchen
+		});
+	} catch (err) {
+		res.status(400).json({ success: false });
+	}
 };
 
 // @desc      Update kitchen
