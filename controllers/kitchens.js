@@ -49,11 +49,8 @@ exports.createKitchen = async (req, res, next) => {
 // @desc      Update kitchen
 // @route     PUT /api/v1/kitchens/:id
 // @access    Private
-exports.updateKitchen = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Update kitchen ${req.params.id}` });
-};
+exports.updateKitchen = async (req, res, next) => {
+	const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
 
 // @desc      Delete kitchen
 // @route     DELETE /api/v1/kitchens/:id
