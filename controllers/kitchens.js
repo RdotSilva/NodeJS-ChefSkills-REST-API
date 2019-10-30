@@ -20,6 +20,10 @@ exports.getKitchen = async (req, res, next) => {
 	try {
 		const kitchen = await Kitchen.findById(req.params.id);
 
+		if (!kitchen) {
+			return res.status(400).json({ success: false });
+		}
+
 		res.status(200).json({ success: true, data: kitchen });
 	} catch (err) {
 		res.status(500).json({ success: false });
