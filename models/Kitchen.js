@@ -8,7 +8,7 @@ const KitchenSchema = new mongoose.Schema({
 		trim: true,
 		maxlength: [50, "Name can not be more than 50 characters"]
 	},
-	Slug: String,
+	slug: String,
 	description: {
 		type: String,
 		required: [true, "Please add a description"],
@@ -97,3 +97,5 @@ const KitchenSchema = new mongoose.Schema({
 		default: Date.now
 	}
 });
+
+module.exports = mongoose.model("Kitchen", KitchenSchema);
