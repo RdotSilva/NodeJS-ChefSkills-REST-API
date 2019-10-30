@@ -87,5 +87,9 @@ const KitchenSchema = new mongoose.Schema({
 	jobGuarantee: {
 		type: Boolean,
 		default: false
+	},
+	acceptIsa: {
+		type: Boolean,
+		default: false
 	}
 });
