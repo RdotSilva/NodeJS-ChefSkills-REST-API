@@ -16,8 +16,14 @@ exports.getKitchens = async (req, res, next) => {
 // @desc      Get single kitchen
 // @route     GET /api/v1/kitchens/:id
 // @access    Public
-exports.getKitchen = (req, res, next) => {
-	res.status(200).json({ success: true, msg: `Show kitchen ${req.params.id}` });
+exports.getKitchen = async (req, res, next) => {
+	try {
+		const kitchen = await Kitchen.findById(req.params.id);
+
+		res.status(200).json({ success: true, data: kitchen });
+	} catch (err) {
+		res.status(500).json({ success: false });
+	}
 };
 
 // @desc      Create new kitchen
