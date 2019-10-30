@@ -75,5 +75,9 @@ const KitchenSchema = new mongoose.Schema({
 	photo: {
 		type: String,
 		default: "no-photo.jpg"
+	},
+	housing: {
+		type: Boolean,
+		default: false
 	}
 });
