@@ -52,6 +52,12 @@ exports.createKitchen = async (req, res, next) => {
 exports.updateKitchen = async (req, res, next) => {
 	const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
 
+	if (!kitchen) {
+		return res.status(400).json({success: false})
+	}
+
+	res.status(200).json({success: true, data: kitchen})
+
 // @desc      Delete kitchen
 // @route     DELETE /api/v1/kitchens/:id
 // @access    Private
