@@ -50,16 +50,20 @@ exports.createKitchen = async (req, res, next) => {
 // @route     PUT /api/v1/kitchens/:id
 // @access    Private
 exports.updateKitchen = async (req, res, next) => {
-	const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
-		new: true,
-		runValidators: true
-	});
+	try {
+		const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+			runValidators: true
+		});
 
-	if (!kitchen) {
-		return res.status(400).json({ success: false });
+		if (!kitchen) {
+			return res.status(400).json({ success: false });
+		}
+
+		res.status(200).json({ success: true, data: kitchen });
+	} catch (err) {
+		res.status(500).json({ success: false });
 	}
-
-	res.status(200).json({ success: true, data: kitchen });
 };
 
 // @desc      Delete kitchen
