@@ -3,8 +3,14 @@ const Kitchen = require("../models/Kitchen");
 // @desc      Get all kitchens
 // @route     GET /api/v1/kitchens
 // @access    Public
-exports.getKitchens = (req, res, next) => {
-	res.status(200).json({ success: true, msg: "Show all kitchens" });
+exports.getKitchens = async (req, res, next) => {
+	try {
+		const kitchens = await Kitchen.find();
+
+		res.status(200).json({ success: true, data: kitchens });
+	} catch (err) {
+		res.status(400).json({ success: false });
+	}
 };
 
 // @desc      Get single kitchen
