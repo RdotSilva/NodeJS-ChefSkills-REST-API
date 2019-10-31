@@ -28,7 +28,8 @@ exports.getKitchen = async (req, res, next) => {
 
 		res.status(200).json({ success: true, data: kitchen });
 	} catch (err) {
-		res.status(500).json({ success: false });
+		// res.status(500).json({ success: false });
+		next(err);
 	}
 };
 
