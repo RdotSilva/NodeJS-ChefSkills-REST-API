@@ -69,8 +69,12 @@ exports.updateKitchen = async (req, res, next) => {
 // @desc      Delete kitchen
 // @route     DELETE /api/v1/kitchens/:id
 // @access    Private
-exports.deleteKitchen = (req, res, next) => {
-	res
-		.status(200)
-		.json({ success: true, msg: `Delete kitchen ${req.params.id}` });
+exports.deleteKitchen = async (req, res, next) => {
+	const kitchen = await Kitchen.findByIdAndDelete(req.params.id);
+
+	if (!kitchen) {
+		return res.status(400).json({ success: false });
+	}
+
+	res.status(200).json({ success: true, data: {} });
 };
