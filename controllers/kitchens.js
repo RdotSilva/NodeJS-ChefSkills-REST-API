@@ -7,7 +7,9 @@ exports.getKitchens = async (req, res, next) => {
 	try {
 		const kitchens = await Kitchen.find();
 
-		res.status(200).json({ success: true, data: kitchens });
+		res
+			.status(200)
+			.json({ success: true, count: kitchens.length, data: kitchens });
 	} catch (err) {
 		res.status(400).json({ success: false });
 	}
