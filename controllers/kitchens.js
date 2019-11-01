@@ -1,4 +1,5 @@
 const Kitchen = require("../models/Kitchen");
+const ErrorResponse = require("../utils/errorResponse");
 
 // @desc      Get all kitchens
 // @route     GET /api/v1/kitchens
@@ -23,13 +24,17 @@ exports.getKitchen = async (req, res, next) => {
 		const kitchen = await Kitchen.findById(req.params.id);
 
 		if (!kitchen) {
-			return res.status(400).json({ success: false });
+			return new ErrorResponse(
+				`Kitchen not found with id of ${req.params.id}`,
+				404
+			);
 		}
 
 		res.status(200).json({ success: true, data: kitchen });
 	} catch (err) {
-		// res.status(500).json({ success: false });
-		next(err);
+		next(
+			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
+		);
 	}
 };
 
