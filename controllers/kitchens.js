@@ -12,7 +12,7 @@ exports.getKitchens = async (req, res, next) => {
 			.status(200)
 			.json({ success: true, count: kitchens.length, data: kitchens });
 	} catch (err) {
-		res.status(400).json({ success: false });
+		next(err);
 	}
 };
 
@@ -48,7 +48,7 @@ exports.createKitchen = async (req, res, next) => {
 			data: kitchen
 		});
 	} catch (err) {
-		res.status(400).json({ success: false });
+		next(err);
 	}
 };
 
@@ -68,7 +68,7 @@ exports.updateKitchen = async (req, res, next) => {
 
 		res.status(200).json({ success: true, data: kitchen });
 	} catch (err) {
-		res.status(500).json({ success: false });
+		next(err);
 	}
 };
 
@@ -85,6 +85,6 @@ exports.deleteKitchen = async (req, res, next) => {
 
 		res.status(200).json({ success: true, data: {} });
 	} catch (err) {
-		res.status(400).json({ success: false });
+		next(err);
 	}
 };
