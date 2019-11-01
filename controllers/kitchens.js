@@ -63,7 +63,10 @@ exports.updateKitchen = async (req, res, next) => {
 		});
 
 		if (!kitchen) {
-			return res.status(400).json({ success: false });
+			return new ErrorResponse(
+				`Kitchen not found with id of ${req.params.id}`,
+				404
+			);
 		}
 
 		res.status(200).json({ success: true, data: kitchen });
