@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const KitchenSchema = new mongoose.Schema({
 	name: {
@@ -96,6 +97,12 @@ const KitchenSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	}
+});
+
+// Create Kitchen slug from the name
+KitchenSchema.pre("save", function(next) {
+	this.slug = slugify(this.name, { lower: true });
+	next();
 });
 
 module.exports = mongoose.model("Kitchen", KitchenSchema);
