@@ -4,6 +4,12 @@ This is the backend API used for the ChefSkills application. ChefSkills is a dir
 
 ### Prerequisites
 
+You must create an account and get access to a location service API. I would recommended MapQuest API:
+
+```
+https://developer.mapquest.com/
+```
+
 You must create a config file with your environment variables.
 
 1. Create a new file: config/config.env
@@ -13,6 +19,11 @@ You must create a config file with your environment variables.
 ```
 NODE_ENV=YOUR_ENV
 PORT=YOUR_PORT
+
+MONGO_URI=YOUR_MONGO_URI
+
+GEOCODER_PROVIDER=YOUR_PROVIDER
+GEOCODER_API_KEY=YOUR_API_KEY
 ```
 
 ## Installation
