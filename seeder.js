@@ -16,3 +16,8 @@ mongoose.connect(process.env.MONGO_URI, {
 	useFindAndModify: false,
 	useUnifiedTopology: true
 });
+
+// Read JSON files
+const kitchens = JSON.parse(
+	fs.readFileSync(`${__dirname}/_data/kitchens.json`, "utf-8")
+);
