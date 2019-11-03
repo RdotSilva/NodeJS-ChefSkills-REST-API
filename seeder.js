@@ -33,3 +33,15 @@ const importData = async () => {
 		console.error(err);
 	}
 };
+
+// Delete data
+const deleteData = async () => {
+	try {
+		await Kitchen.deleteMany();
+
+		console.log("Data destroyed...".red.inverse);
+		process.exit();
+	} catch (err) {
+		console.error(err);
+	}
+};
