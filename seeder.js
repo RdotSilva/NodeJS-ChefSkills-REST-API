@@ -45,3 +45,10 @@ const deleteData = async () => {
 		console.error(err);
 	}
 };
+
+// Check arguments for flag to import or delete data
+if (process.argv[2] === "-i") {
+	importData();
+} else if (process.argv[2] === "-d") {
+	deleteData();
+}
