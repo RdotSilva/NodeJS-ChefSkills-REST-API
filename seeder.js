@@ -21,3 +21,15 @@ mongoose.connect(process.env.MONGO_URI, {
 const kitchens = JSON.parse(
 	fs.readFileSync(`${__dirname}/_data/kitchens.json`, "utf-8")
 );
+
+// Import into DB
+const importData = async () => {
+	try {
+		await Kitchen.create(kitchens);
+
+		console.log("Data Imported...".green.inverse);
+		process.exit();
+	} catch (err) {
+		console.error(err);
+	}
+};
