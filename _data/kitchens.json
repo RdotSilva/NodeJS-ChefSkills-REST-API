@@ -1,0 +1,48 @@
+[
+	{
+		"name": "Cooking Kooks",
+		"description": "Cutting edge culinary school.",
+		"website": "https://cookingkooks.com",
+		"phone": "(111) 111-1111",
+		"email": "enroll@cookingkooks.com",
+		"address": "1 Bay State Rd Boston MA 02215",
+		"careers": [
+			"Restaurant Manager",
+			"Executive Chef",
+			"Head Chef",
+			"Pasty Chef",
+			"Sous Chef",
+			"Banquet Chef"
+		],
+		"housing": true,
+		"jobAssistance": true,
+		"jobGuarantee": false,
+		"acceptIsa": true
+	},
+	{
+		"name": "Best Chef Academy",
+		"description": "The best place to learn to chef!",
+		"website": "https://bestchefacademy.com",
+		"phone": "(222) 111-1111",
+		"email": "enroll@bestchefacad.com",
+		"address": "200 Branch Ave Providence, RI 02904",
+		"careers": ["Restaurant Manager", "Executive Chef", "Head Chef"],
+		"housing": false,
+		"jobAssistance": true,
+		"jobGuarantee": true,
+		"acceptIsa": true
+	},
+	{
+		"name": "Cook Off",
+		"description": "Cook Off training for fast paced environments.",
+		"website": "https://cookofftraining.com",
+		"phone": "(333) 111-1111",
+		"email": "enroll@cookofftraining.com",
+		"address": "243 Arbutus St Middletown, CT 06457",
+		"careers": ["Executive Chef", "Head Chef"],
+		"housing": false,
+		"jobAssistance": false,
+		"jobGuarantee": false,
+		"acceptIsa": false
+	}
+]
