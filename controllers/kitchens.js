@@ -80,4 +80,11 @@ exports.deleteKitchen = asyncHandler(async (req, res, next) => {
 // @desc      Get kitchens within a radius
 // @route     GET /api/v1/kitchens/radius/:zipcode/:distance
 // @access    Private
-exports.getKitchensInRadius = asyncHandler(async (req, res, next) => {});
+exports.getKitchensInRadius = asyncHandler(async (req, res, next) => {
+	const { zipcode, distance } = req.params;
+
+	// Get lat/lng from geocoder
+	const loc = await geocoder.geocode(zipcode);
+	const lat = loc[0].latitude;
+	const lng = loc[0].longitude;
+});
