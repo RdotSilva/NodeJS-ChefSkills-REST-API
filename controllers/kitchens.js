@@ -87,4 +87,19 @@ exports.getKitchensInRadius = asyncHandler(async (req, res, next) => {
 	const loc = await geocoder.geocode(zipcode);
 	const lat = loc[0].latitude;
 	const lng = loc[0].longitude;
+
+	// Calculate radius using radians
+	// Divide distance by radius of Earth
+	// Earth Radius = 3,963 mi / 6,378 km
+	const radius = distance / 3963;
+
+	const kitchens = await Kitchen.find({
+		location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
+	});
+
+	res.status(200).json({
+		success: true,
+		count: kitchens.length,
+		data: kitchens
+	});
 });
