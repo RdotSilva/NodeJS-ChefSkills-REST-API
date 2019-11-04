@@ -5,10 +5,13 @@ const {
 	getKitchen,
 	createKitchen,
 	updateKitchen,
-	deleteKitchen
+	deleteKitchen,
+	getKitchensInRadius
 } = require("../controllers/kitchens");
 
 const router = express.Router();
+
+router.route("/radius/:zipcode/:distance").get(getKitchensInRadius);
 
 router
 	.route("/")
