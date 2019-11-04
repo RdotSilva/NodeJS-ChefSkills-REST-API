@@ -1,4 +1,5 @@
 const Kitchen = require("../models/Kitchen");
+const geocoder = require("../utils/geocoder");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
@@ -75,3 +76,8 @@ exports.deleteKitchen = asyncHandler(async (req, res, next) => {
 
 	res.status(200).json({ success: true, data: {} });
 });
+
+// @desc      Get kitchens within a radius
+// @route     GET /api/v1/kitchens/radius/:zipcode/:distance
+// @access    Private
+exports.getKitchensInRadius = asyncHandler(async (req, res, next) => {});
