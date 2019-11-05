@@ -7,13 +7,15 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route     GET /api/v1/kitchens
 // @access    Public
 exports.getKitchens = asyncHandler(async (req, res, next) => {
+	let query;
+
 	let queryStr = JSON.stringify(req.query);
 
 	queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
-	console.log(queryStr);
+	query = Kitchen.find(JSON.parse(queryStr));
 
-	const kitchens = await Kitchen.find();
+	const kitchens = await query;
 
 	res
 		.status(200)
