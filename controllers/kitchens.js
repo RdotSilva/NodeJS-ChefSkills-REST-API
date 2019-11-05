@@ -7,6 +7,10 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route     GET /api/v1/kitchens
 // @access    Public
 exports.getKitchens = asyncHandler(async (req, res, next) => {
+	let queryStr = JSON.stringify(req.query);
+
+	console.log(queryStr);
+
 	const kitchens = await Kitchen.find();
 
 	res
