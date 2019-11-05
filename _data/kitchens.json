@@ -17,7 +17,8 @@
 		"housing": true,
 		"jobAssistance": true,
 		"jobGuarantee": false,
-		"acceptIsa": true
+		"acceptIsa": true,
+		"averageCost": 80000
 	},
 	{
 		"name": "Best Chef Academy",
@@ -30,7 +31,8 @@
 		"housing": false,
 		"jobAssistance": true,
 		"jobGuarantee": true,
-		"acceptIsa": true
+		"acceptIsa": true,
+		"averageCost": 10000
 	},
 	{
 		"name": "Cook Off",
@@ -43,6 +45,7 @@
 		"housing": false,
 		"jobAssistance": false,
 		"jobGuarantee": false,
-		"acceptIsa": false
+		"acceptIsa": false,
+		"averageCost": 12000
 	}
 ]
