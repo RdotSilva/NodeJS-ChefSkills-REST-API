@@ -9,6 +9,8 @@ const ErrorResponse = require("../utils/errorResponse");
 exports.getKitchens = asyncHandler(async (req, res, next) => {
 	let queryStr = JSON.stringify(req.query);
 
+	queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+
 	console.log(queryStr);
 
 	const kitchens = await Kitchen.find();
