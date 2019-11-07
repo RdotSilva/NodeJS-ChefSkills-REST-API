@@ -12,6 +12,12 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 	// Copy request query
 	const reqQuery = { ...req.query };
 
+	// Fields to exclude
+	const removeFields = ["select"];
+
+	// Loop over removeFields and delete them from request copy
+	removeFields.forEach(param => delete reqQuery[param]);
+
 	// Create query string
 	let queryStr = JSON.stringify(reqQuery);
 
