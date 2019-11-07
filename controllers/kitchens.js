@@ -27,6 +27,12 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 	// Finding resource
 	query = Kitchen.find(JSON.parse(queryStr));
 
+	// Select Fields
+	if (req.query.select) {
+		const fields = req.query.select.split(",").join(" ");
+		query = query.select(fields);
+	}
+
 	// Executing query
 	const kitchens = await query;
 
