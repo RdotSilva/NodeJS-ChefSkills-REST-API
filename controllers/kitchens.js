@@ -43,7 +43,7 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 
 	// Pagination
 	const page = parseInt(req.query.page, 10) || 1;
-	const limit = parseInt(req.query.limit, 10) || 100;
+	const limit = parseInt(req.query.limit, 10) || 25;
 	const startIndex = (page - 1) * limit;
 	const endIndex = page * limit;
 	const total = await Kitchen.countDocuments();
@@ -53,9 +53,28 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 	// Executing query
 	const kitchens = await query;
 
-	res
-		.status(200)
-		.json({ success: true, count: kitchens.length, data: kitchens });
+	// Pagination result
+	const pagination = {};
+
+	if (endIndex < total) {
+		pagination.next = {
+			page: page + 1,
+			limit
+		};
+	}
+
+	if (startIndex > 0) {
+		pagination.prev = {
+			page: page - 1,
+			limit
+		};
+	}
+
+	res.status(200).json({
+		success: true,
+		count: kitchens.length,
+		data: kitchens
+	});
 });
 
 // @desc      Get single kitchen
