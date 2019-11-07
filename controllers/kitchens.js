@@ -73,6 +73,7 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 	res.status(200).json({
 		success: true,
 		count: kitchens.length,
+		pagination,
 		data: kitchens
 	});
 });
