@@ -41,6 +41,13 @@ exports.getKitchens = asyncHandler(async (req, res, next) => {
 		query = query.sort("-createdAt");
 	}
 
+	// Pagination
+	const page = parseInt(req.query.page, 10) || 1;
+	const limit = parseInt(req.query.limit, 10) || 100;
+	const skip = (page - 1) * limit;
+
+	query = query.skip(skip).limit(limit);
+
 	// Executing query
 	const kitchens = await query;
 
