@@ -26,6 +26,15 @@ const CourseSchema = new mongoose.Schema({
 	scholarshipAvailable: {
 		type: Boolean,
 		default: false
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now
+	},
+	kitchen: {
+		type: mongoose.Schema.ObjectId,
+		ref: "Kitchen",
+		required: true
 	}
 });
 
