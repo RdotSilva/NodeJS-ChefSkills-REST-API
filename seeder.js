@@ -8,6 +8,7 @@ dotenv.config({ path: "./config/config.env" });
 
 // Load models
 const Kitchen = require("./models/Kitchen");
+const Course = require("./models/Course");
 
 // Connect to DB.
 mongoose.connect(process.env.MONGO_URI, {
@@ -22,10 +23,15 @@ const kitchens = JSON.parse(
 	fs.readFileSync(`${__dirname}/_data/kitchens.json`, "utf-8")
 );
 
+const courses = JSON.parse(
+	fs.readFileSync(`${__dirname}/_data/courses.json`, "utf-8")
+);
+
 // Import into DB
 const importData = async () => {
 	try {
 		await Kitchen.create(kitchens);
+		await Course.create(courses);
 
 		console.log("Data Imported...".green.inverse);
 		process.exit();
@@ -38,6 +44,7 @@ const importData = async () => {
 const deleteData = async () => {
 	try {
 		await Kitchen.deleteMany();
+		await Course.deleteMany();
 
 		console.log("Data destroyed...".red.inverse);
 		process.exit();
