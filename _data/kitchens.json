@@ -1,5 +1,6 @@
 [
 	{
+		"_id": "5dc1d388b4fdf72760cf644b",
 		"name": "Cooking Kooks",
 		"description": "Cutting edge culinary school.",
 		"website": "https://cookingkooks.com",
@@ -21,6 +22,7 @@
 		"averageCost": 80000
 	},
 	{
+		"_id": "5dc1d388b4fdf72760cf644a",
 		"name": "Best Chef Academy",
 		"description": "The best place to learn to chef!",
 		"website": "https://bestchefacademy.com",
@@ -35,6 +37,7 @@
 		"averageCost": 10000
 	},
 	{
+		"_id": "5dc1d388b4fdf72760cf6449",
 		"name": "Cook Off",
 		"description": "Cook Off training for fast paced environments.",
 		"website": "https://cookofftraining.com",
