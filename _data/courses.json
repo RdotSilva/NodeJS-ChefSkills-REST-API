@@ -1,0 +1,35 @@
+[
+	{
+		"_id": "5d725a4a7b292f5f8ceff789",
+		"title": "Knife Skills 101",
+		"description": "In this course you will learn all of the knife skills you need!",
+		"weeks": 1,
+		"tuition": 500,
+		"minimumSkill": "beginner",
+		"scholarhipsAvailable": true,
+		"kitchen": "5dc1d388b4fdf72760cf644b",
+		"user": "5d7a514b5d2c12c7449be045"
+	},
+	{
+		"_id": "5d725c84c4ded7bcb480eaa0",
+		"title": "Deep Fried Goodness",
+		"description": "In this course you will learn how to deep fry like a boss!",
+		"weeks": 2,
+		"tuition": 800,
+		"minimumSkill": "intermediate",
+		"scholarhipsAvailable": false,
+		"kitchen": "5dc1d388b4fdf72760cf644a",
+		"user": "5d7a514b5d2c12c7449be045"
+	},
+	{
+		"_id": "5d725cb9c4ded7bcb480eaa1",
+		"title": "Dessert Masters",
+		"description": "In this course you will learn how to make the tastiest desserts!",
+		"weeks": 8,
+		"tuition": 1800,
+		"minimumSkill": "advanced",
+		"scholarhipsAvailable": true,
+		"kitchen": "5dc1d388b4fdf72760cf6449",
+		"user": "5d7a514b5d2c12c7449be046"
+	}
+]
