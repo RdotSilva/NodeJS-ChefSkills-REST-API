@@ -1,4 +1,5 @@
 const Course = require("../models/Course");
+const Kitchen = require("../models/Kitchen");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 
@@ -42,6 +43,29 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 			404
 		);
 	}
+
+	res.status(200).json({
+		success: true,
+		data: course
+	});
+});
+
+// @desc      Add course
+// @route     POST /api/v1/kitchens/:kitchenId/courses
+// @access    Private
+exports.addCourse = asyncHandler(async (req, res, next) => {
+	req.body.kitchen = req.params.kitchenId;
+
+	const kitchen = await Kitchen.findById(req.params.kitchenId);
+
+	if (!kitchen) {
+		return next(
+			new ErrorResponse(`No kitchen with id of ${req.params.kitchenId}`),
+			404
+		);
+	}
+
+	const course = await Course.create(req.body);
 
 	res.status(200).json({
 		success: true,
