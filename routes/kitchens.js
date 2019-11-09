@@ -9,7 +9,13 @@ const {
 	getKitchensInRadius
 } = require("../controllers/kitchens");
 
+// Include other resource routers
+const courseRouter = require("./courses");
+
 const router = express.Router();
+
+// Re-route into other resource routers
+router.use("/:kitchenId/courses", courseRouter);
 
 router.route("/radius/:zipcode/:distance").get(getKitchensInRadius);
 
