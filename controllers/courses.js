@@ -12,7 +12,10 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 	if (req.params.kitchenId) {
 		query = Course.find({ kitchen: req.params.kitchenId });
 	} else {
-		query = Course.find();
+		query = Course.find().populate({
+			path: "kitchen",
+			select: "name description"
+		});
 	}
 
 	const courses = await query;
