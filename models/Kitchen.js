@@ -131,6 +131,12 @@ KitchenSchema.pre("save", async function(next) {
 	next();
 });
 
+// Cascade delete courses when a kitchen is deleted
+KitchenSchema.pre("remove", async function(next) {
+	await this.model("Course").deleteMany({ kitchen: this._id });
+	next();
+});
+
 // Reverse populate with virtuals
 KitchenSchema.virtual("courses", {
 	ref: "Course",
