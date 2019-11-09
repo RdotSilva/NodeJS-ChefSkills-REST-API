@@ -71,6 +71,7 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
 		success: true,
 		data: course
 	});
+});
 
 // @desc      Update course
 // @route     PUT /api/v1/courses/:id
@@ -80,7 +81,7 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 
 	if (!course) {
 		return next(
-			new ErrorResponse(`No course with id of ${req.params.id}`),
+			new ErrorResponse(`No course with the id of ${req.params.id}`),
 			404
 		);
 	}
@@ -88,7 +89,10 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 	course = await Course.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 		runValidators: true
-	})
+	});
 
-
+	res.status(200).json({
+		success: true,
+		data: course
+	});
 });
