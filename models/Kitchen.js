@@ -131,4 +131,12 @@ KitchenSchema.pre("save", async function(next) {
 	next();
 });
 
+// Reverse populate with virtuals
+KitchenSchema.virtual("courses", {
+	ref: "Course",
+	localField: "_id",
+	foreignField: "kitchen",
+	justOne: false
+});
+
 module.exports = mongoose.model("Kitchen", KitchenSchema);
