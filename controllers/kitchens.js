@@ -129,7 +129,7 @@ exports.updateKitchen = asyncHandler(async (req, res, next) => {
 // @route     DELETE /api/v1/kitchens/:id
 // @access    Private
 exports.deleteKitchen = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.findByIdAndDelete(req.params.id);
+	const kitchen = await Kitchen.findById(req.params.id);
 
 	if (!kitchen) {
 		return new ErrorResponse(
@@ -137,6 +137,8 @@ exports.deleteKitchen = asyncHandler(async (req, res, next) => {
 			404
 		);
 	}
+
+	kitchen.remove();
 
 	res.status(200).json({ success: true, data: {} });
 });
