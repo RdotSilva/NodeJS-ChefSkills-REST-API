@@ -85,9 +85,8 @@ exports.getKitchen = asyncHandler(async (req, res, next) => {
 	const kitchen = await Kitchen.findById(req.params.id);
 
 	if (!kitchen) {
-		return new ErrorResponse(
-			`Kitchen not found with id of ${req.params.id}`,
-			404
+		return next(
+			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
 		);
 	}
 
@@ -116,9 +115,8 @@ exports.updateKitchen = asyncHandler(async (req, res, next) => {
 	});
 
 	if (!kitchen) {
-		return new ErrorResponse(
-			`Kitchen not found with id of ${req.params.id}`,
-			404
+		return next(
+			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
 		);
 	}
 
@@ -132,9 +130,8 @@ exports.deleteKitchen = asyncHandler(async (req, res, next) => {
 	const kitchen = await Kitchen.findById(req.params.id);
 
 	if (!kitchen) {
-		return new ErrorResponse(
-			`Kitchen not found with id of ${req.params.id}`,
-			404
+		return next(
+			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
 		);
 	}
 
