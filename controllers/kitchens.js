@@ -177,15 +177,12 @@ exports.kitchenPhotoUpload = asyncHandler(async (req, res, next) => {
 	const kitchen = await Kitchen.findById(req.params.id);
 
 	if (!kitchen) {
-		return new ErrorResponse(
-			`Kitchen not found with id of ${req.params.id}`,
-			404
+		return next(
+			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
 		);
 	}
 
 	if (!req.files) {
-		return new ErrorResponse(`Please upload a file`, 400);
+		return next(new ErrorResponse(`Please upload a file`, 400));
 	}
-
-	res.status(200).json({ success: true, data: {} });
 });

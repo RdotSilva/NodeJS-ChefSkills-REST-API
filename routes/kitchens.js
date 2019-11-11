@@ -6,7 +6,8 @@ const {
 	createKitchen,
 	updateKitchen,
 	deleteKitchen,
-	getKitchensInRadius
+	getKitchensInRadius,
+	kitchenPhotoUpload
 } = require("../controllers/kitchens");
 
 // Include other resource routers
@@ -18,6 +19,8 @@ const router = express.Router();
 router.use("/:kitchenId/courses", courseRouter);
 
 router.route("/radius/:zipcode/:distance").get(getKitchensInRadius);
+
+router.route("/:id/photo").put(kitchenPhotoUpload);
 
 router
 	.route("/")
