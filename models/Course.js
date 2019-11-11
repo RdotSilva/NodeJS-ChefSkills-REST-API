@@ -58,4 +58,9 @@ CourseSchema.post("save", function() {
 	this.constructor.getAverageCost(this.kitchen);
 });
 
+// Call getAverageCost before remove
+CourseSchema.pre("remove", function() {
+	this.constructor.getAverageCost(this.kitchen);
+});
+
 module.exports = mongoose.model("Course", CourseSchema);
