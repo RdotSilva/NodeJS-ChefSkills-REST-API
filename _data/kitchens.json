@@ -18,8 +18,7 @@
 		"housing": true,
 		"jobAssistance": true,
 		"jobGuarantee": false,
-		"acceptIsa": true,
-		"averageCost": 80000
+		"acceptIsa": true
 	},
 	{
 		"_id": "5dc1d388b4fdf72760cf644a",
@@ -33,8 +32,7 @@
 		"housing": false,
 		"jobAssistance": true,
 		"jobGuarantee": true,
-		"acceptIsa": true,
-		"averageCost": 10000
+		"acceptIsa": true
 	},
 	{
 		"_id": "5dc1d388b4fdf72760cf6449",
@@ -48,7 +46,6 @@
 		"housing": false,
 		"jobAssistance": false,
 		"jobGuarantee": false,
-		"acceptIsa": false,
-		"averageCost": 12000
+		"acceptIsa": false
 	}
 ]
