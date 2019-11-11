@@ -51,6 +51,14 @@ CourseSchema.statics.getAverageCost = async function(kitchenId) {
 			}
 		}
 	]);
+
+	try {
+		await this.model("Kitchen").findByIdAndUpdate(kitchenId, {
+			averageCost: Math.ceil(obj[0].averageCost / 10) * 10
+		});
+	} catch (err) {
+		console.error(err);
+	}
 };
 
 // Call getAverageCost after save
