@@ -53,4 +53,9 @@ CourseSchema.statics.getAverageCost = async function(kitchenId) {
 	]);
 };
 
+// Call getAverageCost after save
+CourseSchema.post("save", function() {
+	this.constructor.getAverageCost(this.kitchen);
+});
+
 module.exports = mongoose.model("Course", CourseSchema);
