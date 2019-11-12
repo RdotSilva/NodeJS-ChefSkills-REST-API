@@ -17,7 +17,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
   // Finding resource
-  query = model.find(JSON.parse(queryStr)).populate("courses");
+  query = model.find(JSON.parse(queryStr));
 
   // Select Fields
   if (req.query.select) {
@@ -41,6 +41,10 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const total = await model.countDocuments();
 
   query = query.skip(startIndex).limit(limit);
+
+  if (populate) {
+    query = query.populate(populate);
+  }
 
   // Executing query
   const results = await query;
