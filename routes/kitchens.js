@@ -1,14 +1,17 @@
 const express = require("express");
 
 const {
-	getKitchens,
-	getKitchen,
-	createKitchen,
-	updateKitchen,
-	deleteKitchen,
-	getKitchensInRadius,
-	kitchenPhotoUpload
+  getKitchens,
+  getKitchen,
+  createKitchen,
+  updateKitchen,
+  deleteKitchen,
+  getKitchensInRadius,
+  kitchenPhotoUpload
 } = require("../controllers/kitchens");
+
+const Kitchen = require("../models/Kitchen");
+const advancedResults = require("../middleware/advancedResults");
 
 // Include other resource routers
 const courseRouter = require("./courses");
@@ -23,14 +26,14 @@ router.route("/radius/:zipcode/:distance").get(getKitchensInRadius);
 router.route("/:id/photo").put(kitchenPhotoUpload);
 
 router
-	.route("/")
-	.get(getKitchens)
-	.post(createKitchen);
+  .route("/")
+  .get(advancedResults(Kitchen, "courses"), getKitchens)
+  .post(createKitchen);
 
 router
-	.route("/:id")
-	.get(getKitchen)
-	.put(updateKitchen)
-	.delete(deleteKitchen);
+  .route("/:id")
+  .get(getKitchen)
+  .put(updateKitchen)
+  .delete(deleteKitchen);
 
 module.exports = router;
