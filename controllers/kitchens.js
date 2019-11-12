@@ -8,212 +8,149 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route     GET /api/v1/kitchens
 // @access    Public
 exports.getKitchens = asyncHandler(async (req, res, next) => {
-	let query;
-
-	// Copy request query
-	const reqQuery = { ...req.query };
-
-	// Fields to exclude
-	const removeFields = ["select", "sort", "page", "limit"];
-
-	// Loop over removeFields and delete them from request copy
-	removeFields.forEach(param => delete reqQuery[param]);
-
-	// Create query string
-	let queryStr = JSON.stringify(reqQuery);
-
-	// Create operators ($gt, $gte, etc)
-	queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
-
-	// Finding resource
-	query = Kitchen.find(JSON.parse(queryStr)).populate("courses");
-
-	// Select Fields
-	if (req.query.select) {
-		const fields = req.query.select.split(",").join(" ");
-		query = query.select(fields);
-	}
-
-	// Sort
-	if (req.query.sort) {
-		const sortBy = req.query.sort.split(",").join(" ");
-		query = query.sort(sortBy);
-	} else {
-		query = query.sort("-createdAt");
-	}
-
-	// Pagination
-	const page = parseInt(req.query.page, 10) || 1;
-	const limit = parseInt(req.query.limit, 10) || 25;
-	const startIndex = (page - 1) * limit;
-	const endIndex = page * limit;
-	const total = await Kitchen.countDocuments();
-
-	query = query.skip(startIndex).limit(limit);
-
-	// Executing query
-	const kitchens = await query;
-
-	// Pagination result
-	const pagination = {};
-
-	if (endIndex < total) {
-		pagination.next = {
-			page: page + 1,
-			limit
-		};
-	}
-
-	if (startIndex > 0) {
-		pagination.prev = {
-			page: page - 1,
-			limit
-		};
-	}
-
-	res.status(200).json({
-		success: true,
-		count: kitchens.length,
-		pagination,
-		data: kitchens
-	});
+  res.status(200).json({
+    success: true,
+    count: kitchens.length,
+    pagination,
+    data: kitchens
+  });
 });
 
 // @desc      Get single kitchen
 // @route     GET /api/v1/kitchens/:id
 // @access    Public
 exports.getKitchen = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.findById(req.params.id);
+  const kitchen = await Kitchen.findById(req.params.id);
 
-	if (!kitchen) {
-		return next(
-			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
-		);
-	}
+  if (!kitchen) {
+    return next(
+      new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
+    );
+  }
 
-	res.status(200).json({ success: true, data: kitchen });
+  res.status(200).json({ success: true, data: kitchen });
 });
 
 // @desc      Create new kitchen
 // @route     POST /api/v1/kitchens
 // @access    Private
 exports.createKitchen = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.create(req.body);
+  const kitchen = await Kitchen.create(req.body);
 
-	res.status(201).json({
-		success: true,
-		data: kitchen
-	});
+  res.status(201).json({
+    success: true,
+    data: kitchen
+  });
 });
 
 // @desc      Update kitchen
 // @route     PUT /api/v1/kitchens/:id
 // @access    Private
 exports.updateKitchen = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
-		new: true,
-		runValidators: true
-	});
+  const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
 
-	if (!kitchen) {
-		return next(
-			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
-		);
-	}
+  if (!kitchen) {
+    return next(
+      new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
+    );
+  }
 
-	res.status(200).json({ success: true, data: kitchen });
+  res.status(200).json({ success: true, data: kitchen });
 });
 
 // @desc      Delete kitchen
 // @route     DELETE /api/v1/kitchens/:id
 // @access    Private
 exports.deleteKitchen = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.findById(req.params.id);
+  const kitchen = await Kitchen.findById(req.params.id);
 
-	if (!kitchen) {
-		return next(
-			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
-		);
-	}
+  if (!kitchen) {
+    return next(
+      new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
+    );
+  }
 
-	kitchen.remove();
+  kitchen.remove();
 
-	res.status(200).json({ success: true, data: {} });
+  res.status(200).json({ success: true, data: {} });
 });
 
 // @desc      Get kitchens within a radius
 // @route     GET /api/v1/kitchens/radius/:zipcode/:distance
 // @access    Private
 exports.getKitchensInRadius = asyncHandler(async (req, res, next) => {
-	const { zipcode, distance } = req.params;
+  const { zipcode, distance } = req.params;
 
-	// Get lat/lng from geocoder
-	const loc = await geocoder.geocode(zipcode);
-	const lat = loc[0].latitude;
-	const lng = loc[0].longitude;
+  // Get lat/lng from geocoder
+  const loc = await geocoder.geocode(zipcode);
+  const lat = loc[0].latitude;
+  const lng = loc[0].longitude;
 
-	// Calculate radius using radians
-	// Divide distance by radius of Earth
-	// Earth Radius = 3,963 mi / 6,378 km
-	const radius = distance / 3963;
+  // Calculate radius using radians
+  // Divide distance by radius of Earth
+  // Earth Radius = 3,963 mi / 6,378 km
+  const radius = distance / 3963;
 
-	const kitchens = await Kitchen.find({
-		location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
-	});
+  const kitchens = await Kitchen.find({
+    location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } }
+  });
 
-	res.status(200).json({
-		success: true,
-		count: kitchens.length,
-		data: kitchens
-	});
+  res.status(200).json({
+    success: true,
+    count: kitchens.length,
+    data: kitchens
+  });
 });
 
 // @desc      Upload photo for kitchen
 // @route     PUT /api/v1/kitchens/:id/photo
 // @access    Private
 exports.kitchenPhotoUpload = asyncHandler(async (req, res, next) => {
-	const kitchen = await Kitchen.findById(req.params.id);
+  const kitchen = await Kitchen.findById(req.params.id);
 
-	if (!kitchen) {
-		return next(
-			new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
-		);
-	}
+  if (!kitchen) {
+    return next(
+      new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
+    );
+  }
 
-	if (!req.files) {
-		return next(new ErrorResponse(`Please upload a file`, 400));
-	}
+  if (!req.files) {
+    return next(new ErrorResponse(`Please upload a file`, 400));
+  }
 
-	const file = req.files.file;
+  const file = req.files.file;
 
-	// Make sure the image is a photo
-	if (!file.mimetype.startsWith("image")) {
-		return next(new ErrorResponse(`Please upload an image file`, 400));
-	}
+  // Make sure the image is a photo
+  if (!file.mimetype.startsWith("image")) {
+    return next(new ErrorResponse(`Please upload an image file`, 400));
+  }
 
-	// Check file size
-	if (file.size > process.env.MAX_FILE_UPLOAD) {
-		return next(
-			new ErrorResponse(
-				`Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`,
-				400
-			)
-		);
-	}
+  // Check file size
+  if (file.size > process.env.MAX_FILE_UPLOAD) {
+    return next(
+      new ErrorResponse(
+        `Please upload an image less than ${process.env.MAX_FILE_UPLOAD}`,
+        400
+      )
+    );
+  }
 
-	// Create custom filename
-	file.name = `photo_${kitchen._id}${path.parse(file.name).ext}`;
+  // Create custom filename
+  file.name = `photo_${kitchen._id}${path.parse(file.name).ext}`;
 
-	file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
-		if (err) {
-			console.error(err);
-			return next(new ErrorResponse(`Problem with file upload`, 500));
-		}
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+    if (err) {
+      console.error(err);
+      return next(new ErrorResponse(`Problem with file upload`, 500));
+    }
 
-		await Kitchen.findByIdAndUpdate(req.params.id, { photo: file.name });
-		res.status(200).json({
-			success: true,
-			data: file.name
-		});
-	});
+    await Kitchen.findByIdAndUpdate(req.params.id, { photo: file.name });
+    res.status(200).json({
+      success: true,
+      data: file.name
+    });
+  });
 });
