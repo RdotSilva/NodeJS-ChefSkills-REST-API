@@ -8,12 +8,7 @@ const ErrorResponse = require("../utils/errorResponse");
 // @route     GET /api/v1/kitchens
 // @access    Public
 exports.getKitchens = asyncHandler(async (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    count: kitchens.length,
-    pagination,
-    data: kitchens
-  });
+  res.status(200).json(res.advancedResults);
 });
 
 // @desc      Get single kitchen
