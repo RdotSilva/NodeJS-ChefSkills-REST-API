@@ -1,3 +1,4 @@
+const path = require("path");
 const Kitchen = require("../models/Kitchen");
 const geocoder = require("../utils/geocoder");
 const asyncHandler = require("../middleware/async");
@@ -199,4 +200,20 @@ exports.kitchenPhotoUpload = asyncHandler(async (req, res, next) => {
 			)
 		);
 	}
+
+	// Create custom filename
+	file.name = `photo_${kitchen._id}${path.parse(file.name).ext}`;
+
+	file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}}`, async err => {
+		if (err) {
+			console.error(err);
+			return next(new ErrorResponse(`Problem with file upload`, 500));
+		}
+
+		await Kitchen.findByIdAndUpdate(req.params.id, { photo: file.name });
+		res.status(200).json({
+			success: true,
+			data: file.name
+		});
+	});
 });
