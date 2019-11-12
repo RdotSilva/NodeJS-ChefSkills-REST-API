@@ -1,23 +1,32 @@
 const express = require("express");
 
 const {
-	getCourses,
-	getCourse,
-	addCourse,
-	updateCourse,
-	deleteCourse
+  getCourses,
+  getCourse,
+  addCourse,
+  updateCourse,
+  deleteCourse
 } = require("../controllers/courses");
+
+const Course = require("../models/Course");
+const advancedResults = require("../middleware/advancedResults");
 
 const router = express.Router({ mergeParams: true });
 
 router
-	.route("/")
-	.get(getCourses)
-	.post(addCourse);
+  .route("/")
+  .get(
+    advancedResults(Course, {
+      path: "kitchen",
+      select: "name description"
+    }),
+    getCourses
+  )
+  .post(addCourse);
 router
-	.route("/:id")
-	.get(getCourse)
-	.put(updateCourse)
-	.delete(deleteCourse);
+  .route("/:id")
+  .get(getCourse)
+  .put(updateCourse)
+  .delete(deleteCourse);
 
 module.exports = router;
