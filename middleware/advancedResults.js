@@ -60,7 +60,15 @@ const advancedResults = (model, populate) => async (req, res, next) => {
       page: page - 1,
       limit
     };
+
+    res.advancedResults = {
+      success: true,
+      count: results.length,
+      pagination,
+      data: results
+    };
   }
+  next();
 };
 
 module.exports = advancedResults;
