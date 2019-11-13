@@ -18,5 +18,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "publisher"],
     default: "user"
+  },
+  password: {
+    type: String,
+    required: [true, "Please add a password"],
+    minlength: 6,
+    select: false
   }
 });
