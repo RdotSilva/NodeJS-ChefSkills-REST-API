@@ -41,6 +41,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Invalid credentials", 401));
   }
 
+  // Check if password matches
+  const isMatch = await user.matchPassword(password);
+
+  if (!isMatch) {
+    return next(new ErrorResponse("Invalid credentials", 401));
+  }
+
   // Create token
   const token = user.getSignedJwtToken();
 
