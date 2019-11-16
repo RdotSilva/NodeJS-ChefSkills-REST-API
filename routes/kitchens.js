@@ -18,22 +18,24 @@ const courseRouter = require("./courses");
 
 const router = express.Router();
 
+const { protect } = require("../middleware/auth");
+
 // Re-route into other resource routers
 router.use("/:kitchenId/courses", courseRouter);
 
 router.route("/radius/:zipcode/:distance").get(getKitchensInRadius);
 
-router.route("/:id/photo").put(kitchenPhotoUpload);
+router.route("/:id/photo").put(protect, kitchenPhotoUpload);
 
 router
   .route("/")
   .get(advancedResults(Kitchen, "courses"), getKitchens)
-  .post(createKitchen);
+  .post(protect, createKitchen);
 
 router
   .route("/:id")
   .get(getKitchen)
-  .put(updateKitchen)
-  .delete(deleteKitchen);
+  .put(protect, updateKitchen)
+  .delete(protect, deleteKitchen);
 
 module.exports = router;
