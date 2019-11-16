@@ -150,6 +150,16 @@ exports.kitchenPhotoUpload = asyncHandler(async (req, res, next) => {
     );
   }
 
+  // Make sure user is kitchen owner
+  if (kitchen.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.params.id} is not authorized to update this kitchen`,
+        401
+      )
+    );
+  }
+
   if (!req.files) {
     return next(new ErrorResponse(`Please upload a file`, 400));
   }
