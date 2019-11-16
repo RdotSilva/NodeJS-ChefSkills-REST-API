@@ -30,6 +30,22 @@ exports.getKitchen = asyncHandler(async (req, res, next) => {
 // @route     POST /api/v1/kitchens
 // @access    Private
 exports.createKitchen = asyncHandler(async (req, res, next) => {
+  // Add user to req.body
+  req.body.user = req.user.id;
+
+  // Check for published kitchen
+  const publishedKitchen = await Kitchen.findOne({ user: req.user.id });
+
+  // If user is not an admin, they can only add one kitchen
+  if (publishedKitchen && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `The user with ID ${req.user.id} has already published a kitchen`,
+        400
+      )
+    );
+  }
+
   const kitchen = await Kitchen.create(req.body);
 
   res.status(201).json({
