@@ -58,16 +58,28 @@ exports.createKitchen = asyncHandler(async (req, res, next) => {
 // @route     PUT /api/v1/kitchens/:id
 // @access    Private
 exports.updateKitchen = asyncHandler(async (req, res, next) => {
-  const kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
+  let kitchen = await Kitchen.findById(req.params.id);
 
   if (!kitchen) {
     return next(
       new ErrorResponse(`Kitchen not found with id of ${req.params.id}`, 404)
     );
   }
+
+  // Make sure user is kitchen owner
+  if (kitchen.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.params.id} is not authorized to update this kitchen`,
+        401
+      )
+    );
+  }
+
+  kitchen = await Kitchen.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+  });
 
   res.status(200).json({ success: true, data: kitchen });
 });
