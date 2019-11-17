@@ -47,6 +47,7 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.addCourse = asyncHandler(async (req, res, next) => {
   req.body.kitchen = req.params.kitchenId;
+  req.body.user = req.user.id;
 
   const kitchen = await Kitchen.findById(req.params.kitchenId);
 
@@ -54,6 +55,16 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
     return next(
       new ErrorResponse(`No kitchen with id of ${req.params.kitchenId}`),
       404
+    );
+  }
+
+  // Make sure user is kitchen owner
+  if (kitchen.user.toString() !== req.user.id && req.user.role !== "admin") {
+    return next(
+      new ErrorResponse(
+        `User ${req.user.id} is not authorized to add a course to kitchen ${kitchen._id}`,
+        401
+      )
     );
   }
 
