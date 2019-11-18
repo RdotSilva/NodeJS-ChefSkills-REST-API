@@ -102,10 +102,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Email could not be sent", 500));
   }
 
-  res.status(200).json({
-    success: true,
-    data: user
-  });
+  // res.status(200).json({
+  //   success: true,
+  //   data: user
+  // });
 });
 
 // @desc      Reset password
@@ -154,5 +154,8 @@ const sendTokenResponse = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token });
+    .json({
+      success: true,
+      token
+    });
 };
