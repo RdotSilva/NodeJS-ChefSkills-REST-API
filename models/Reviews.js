@@ -10,6 +10,12 @@ const ReviewSchema = new mongoose.Schema({
   text: {
     type: String,
     required: [true, "Please add some text"]
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 10,
+    required: [true, "Please add a rating between 1 and 10"]
   }
 });
 
