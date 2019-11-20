@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 
-const ReviewSchema = new mongoose.Schema({});
+const ReviewSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    trim: true,
+    required: [true, "Please add a title for the review"],
+    maxLength: 100
+  }
+});
 
 module.exports = mongoose.model("Reviews", ReviewSchema);
