@@ -20,6 +20,16 @@ const ReviewSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  kitchen: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Kitchen",
+    required: true
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true
   }
 });
 
