@@ -32,8 +32,7 @@ exports.getReview = asyncHandler(async (req, res, next) => {
 
   if (!review) {
     return next(
-      new ErrorResponse(`No review found with the ID of ${req.params.id}`),
-      404
+      new ErrorResponse(`No review found with the ID of ${req.params.id}`, 404)
     );
   }
 
