@@ -41,3 +41,26 @@ exports.getReview = asyncHandler(async (req, res, next) => {
     data: review
   });
 });
+
+// @desc      Add review
+// @route     POST /api/v1/kitchens/:kitchenId/reviews
+// @access    Private
+exports.addReview = asyncHandler(async (req, res, next) => {
+  req.body.kitchen = req.params.kitchenId;
+  req.body.user = req.user.id;
+
+  const kitchen = await Kitchen.findById(req.params.kitchenId);
+
+  if (!kitchen) {
+    return next(
+      new ErrorResponse(`No kitchen with the ID of ${req.params.kitchenId}`)
+    );
+  }
+
+  const review = await Review.create(req.body);
+
+  res.status(201).json({
+    success: true,
+    data: review
+  });
+});
