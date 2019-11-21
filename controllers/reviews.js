@@ -9,7 +9,7 @@ const ErrorResponse = require("../utils/errorResponse");
 // @access    Public
 exports.getReviews = asyncHandler(async (req, res, next) => {
   if (req.params.kitchenId) {
-    const reviews = await Course.find({ kitchen: req.params.kitchenId });
+    const reviews = await Review.find({ kitchen: req.params.kitchenId });
 
     return res.status(200).json({
       success: true,
