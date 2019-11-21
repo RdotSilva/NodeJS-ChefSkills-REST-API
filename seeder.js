@@ -10,6 +10,7 @@ dotenv.config({ path: "./config/config.env" });
 const Kitchen = require("./models/Kitchen");
 const Course = require("./models/Course");
 const User = require("./models/User");
+const Review = require("./models/Review");
 
 // Connect to DB.
 mongoose.connect(process.env.MONGO_URI, {
