@@ -59,4 +59,14 @@ ReviewSchema.statics.getAverageRating = async function(kitchenId) {
   }
 };
 
+// Call getAverageCost after save
+ReviewSchema.post("save", function() {
+  this.constructor.getAverageRating(this.kitchen);
+});
+
+// Call getAverageCost before remove
+ReviewSchema.pre("remove", function() {
+  this.constructor.getAverageRating(this.kitchen);
+});
+
 module.exports = mongoose.model("Review", ReviewSchema);
