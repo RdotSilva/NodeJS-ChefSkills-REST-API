@@ -33,4 +33,7 @@ const ReviewSchema = new mongoose.Schema({
   }
 });
 
+// Prevent user from submitting more than one review per kitchen
+ReviewSchema.index({ kitchen: 1, user: 1 }, { unique: true });
+
 module.exports = mongoose.model("Review", ReviewSchema);
