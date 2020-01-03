@@ -14,9 +14,9 @@ This project also includes full API documentation located on the homepage.
 
 Postman Collection also provides additional documentation for the API and can be used for testing all API routes.
 
-Live Demo hosted using Amazon Web Services (AWS): http://chefskillsapi.com
+Live Demo hosted using Amazon Web Services (AWS): [AWS Demo](https://www.chefskillsapi.com "AWS Demo")
 
-Postman Collection: https://documenter.getpostman.com/view/7246128/SW7c37ZU
+Postman Collection: [Postman Documentation](https://documenter.getpostman.com/view/7246128/SW7c37ZU "Postman Documentation")
 
 ### Prerequisites
 
